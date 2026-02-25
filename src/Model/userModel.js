@@ -9,9 +9,15 @@ export const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      defaultValue: "",
+    },
+    lastName: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: "",
     },
     email: {
       type: DataTypes.STRING(100),
@@ -25,13 +31,42 @@ export const User = sequelize.define(
       type: DataTypes.STRING(10),
       allowNull: false,
     },
-    dob: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
     address: {
       type: DataTypes.STRING(255),
       allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    postalCode: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+    },
+    favoriteFood: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: "N/A",
+    },
+    howDidYouFindUs: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: "N/A",
+    },
+    subscribeNotifications: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    preferredLanguage: {
+      type: DataTypes.STRING(40),
+      allowNull: false,
+      defaultValue: "English",
+    },
+    paymentPreference: {
+      type: DataTypes.STRING(40),
+      allowNull: false,
+      defaultValue: "Cash",
     },
     password: {
       type: DataTypes.STRING,
@@ -40,7 +75,7 @@ export const User = sequelize.define(
     role: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      defaultValue: "Customer",
+      defaultValue: "CUSTOMER",
     },
   },
   {

@@ -7,9 +7,27 @@ import { generateToken } from "../security/jwt-utils.js";
  */
 export const register = async (req, res) => {
   try {
-    const { name, email, phone, dob, address, password, role } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      address,
+      password,
+      favoriteFood,
+      howDidYouFindUs,
+    } = req.body;
  
-    if (!name || !email || !phone || !dob || !address || !password) {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !address ||
+      !password ||
+      !favoriteFood ||
+      !howDidYouFindUs
+    ) {
       return res.status(400).send({ message: "All fields are required" });
     }
  
@@ -21,13 +39,15 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
  
     const newUser = await User.create({
-      name,
+      firstName,
+      lastName,
       email,
       phone,
-      dob,
       address,
+      favoriteFood,
+      howDidYouFindUs,
       password: hashedPassword,
-      role: role || "Customer",
+      role: "CUSTOMER",
     });
  
     const token = generateToken({
@@ -42,7 +62,7 @@ export const register = async (req, res) => {
       message: "User registered successfully",
       user: userData,
       role: newUser.role,
-      access_token: token,
+      token,
     });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -84,7 +104,7 @@ export const login = async (req, res) => {
       message: "Login successful",
       user: userData,
       role: user.role,
-      access_token: token,
+      token,
     });
   } catch (error) {
     res.status(500).send({ message: error.message });

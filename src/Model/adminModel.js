@@ -10,8 +10,8 @@ export const createAdminIfNotExists = async () => {
  
     if (admin) {
       // Update role if needed
-      if (admin.role !== "admin") {
-        admin.role = "admin";
+      if (admin.role !== "ADMIN") {
+        admin.role = "ADMIN";
         await admin.save();
       } else {
       }
@@ -19,11 +19,15 @@ export const createAdminIfNotExists = async () => {
     }
     // Create admin if not exists
     await User.create({
-      fullname: "Admin",
-      username: "admin",
+      firstName: "Admin",
+      lastName: "User",
       email: adminEmail,
+      phone: "0000000000",
+      address: "Admin",
+      favoriteFood: "N/A",
+      howDidYouFindUs: "ADMIN_SEED",
       password: await bcrypt.hash("Admin123%", 10),
-      role: "admin",
+      role: "ADMIN",
     });
  
     console.log("Admin created successfully");

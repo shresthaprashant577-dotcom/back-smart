@@ -3,10 +3,10 @@ import { Sequelize } from "sequelize";
 export const sequelize = new Sequelize(
   "BiteBrew",    
   "postgres",     
-  "3720",    
+  "Nepal@123",    
   {
     host: "localhost",
-    port: 5433,
+    port: 5432,
     dialect: "postgres",
   }
 );
