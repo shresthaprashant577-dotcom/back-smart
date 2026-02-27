@@ -35,6 +35,11 @@ export const MenuItem = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
+    isSpecial: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     tableName: "menu_items",

@@ -30,7 +30,7 @@ export const getMenu = async (req, res) => {
 
 export const createMenuItem = async (req, res) => {
   try {
-    const { name, description, price, imageUrl, category, categoryId } = req.body;
+    const { name, description, price, imageUrl, category, categoryId, isSpecial } = req.body;
 
     if (!name || !description || !price || !category) {
       return res.status(400).send({ message: "All fields are required" });
@@ -44,6 +44,7 @@ export const createMenuItem = async (req, res) => {
       category,
       categoryId: categoryId || null,
       isAvailable: true,
+      isSpecial: Boolean(isSpecial),
     });
 
     res.status(201).send({ data: item, message: "Menu item created" });
@@ -58,13 +59,14 @@ export const updateMenuItem = async (req, res) => {
     const item = await MenuItem.findByPk(id);
     if (!item) return res.status(404).send({ message: "Menu item not found" });
 
-    const { name, description, price, imageUrl, category, isAvailable } = req.body;
+    const { name, description, price, imageUrl, category, isAvailable, isSpecial } = req.body;
     item.name = name ?? item.name;
     item.description = description ?? item.description;
     item.price = price ?? item.price;
     item.imageUrl = imageUrl ?? item.imageUrl;
     item.category = category ?? item.category;
     if (typeof isAvailable === "boolean") item.isAvailable = isAvailable;
+    if (typeof isSpecial === "boolean") item.isSpecial = isSpecial;
 
     await item.save();
     res.status(200).send({ data: item, message: "Menu item updated" });
